@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DPForge — Dynamic Programming IDE & Parallel Efficiency Judge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- Monaco loader (must be synchronous, before app.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+</head>
+<body>
+
+  <!-- Skip navigation link (WCAG 2.1 AA) -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header role="banner" class="app-header">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+          <path d="M10 6.5h4"></path>
+          <path d="M6.5 10v4"></path>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-title">
+          <span>DPForge</span>
+          <span class="brand-badge">IDE v2.0</span>
+        </div>
+        <div class="brand-sub">55 Striver A2Z DP Problems · Python / C++ / Java · Efficiency Judge</div>
+      </div>
+    </div>
+
+    <div class="grow"></div>
+
+    <button id="openStats" class="header-btn" aria-label="Open Submissions History and Stats Dashboard">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 20V10"></path>
+        <path d="M12 20V4"></path>
+        <path d="M6 20v-6"></path>
+      </svg>
+      <span>Analytics & History</span>
+    </button>
+
+    <div class="progress-widget" aria-label="Problems progress">
+      <div class="progress-meta">
+        <span class="progress-label">Solved</span>
+        <span id="prog" class="progress-count">0/55</span>
+      </div>
+      <div class="progress-track">
+        <div
+          id="fill"
+          class="fill"
+          role="progressbar"
+          aria-valuenow="0"
+          aria-valuemin="0"
+          aria-valuemax="55"
+          aria-label="Problems solved"
+        ></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="app" role="main">
+
+    <!-- ── Left: Problem statement ──────────────────────────── -->
+    <section class="left" aria-label="Problem statement">
+
+      <div class="topbar">
+        <div class="select-wrapper">
+          <svg class="select-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <select
+            id="picker"
+            aria-label="Select problem"
+            title="Select problem"
+          ></select>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="question-header">
+          <div class="kicker-row">
+            <span id="kicker" class="kicker"></span>
+            <div class="tags">
+              <span id="diff" class="tag"></span>
+              <span id="pos"  class="tag meta-tag"></span>
+            </div>
+          </div>
+          <h1 id="qtitle"></h1>
+        </div>
+
+        <div id="story" class="story"></div>
+
+        <div class="boxes">
+          <div class="box">
+            <div class="box-head">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              <b>Signature / Submission</b>
+            </div>
+            <pre id="sig"></pre>
+          </div>
+          <div class="box">
+            <div class="box-head">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+              <b>Input Format</b>
+            </div>
+            <div id="input"></div>
+          </div>
+          <div class="box">
+            <div class="box-head">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+              <b>Output Format</b>
+            </div>
+            <div id="outputSpec"></div>
+          </div>
+          <div class="box">
+            <div class="box-head">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <b>Constraints & Limits</b>
+            </div>
+            <div id="constraints"></div>
+          </div>
+        </div>
+
+        <div class="section-divider">
+          <span>Examples</span>
+        </div>
+        <div id="examples" class="examples"></div>
+
+        <div class="navrow">
+          <button id="prev" class="nav-btn" aria-label="Previous problem">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Previous</span>
+          </button>
+          <button id="next" class="nav-btn" aria-label="Next problem">
+            <span>Next</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+          <div class="grow"></div>
+          <button
+            id="mark"
+            class="mark-btn"
+            aria-label="Mark current problem as solved"
+            aria-pressed="false"
+          >
+            <svg class="star-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            <span class="mark-label">Mark Solved</span>
+          </button>
+        </div>
+      </div>
+
+    </section><!-- .left -->
+
+    <!-- ── Right: Code editor, Visualizer & Editorial Tabs ────── -->
+    <section class="right" aria-label="Code editor and learning tools">
+
+      <div class="tab-bar" role="tablist" aria-label="Editor and visualizer tabs">
+        <button id="tabEditor" class="tab-btn active" role="tab" aria-selected="true" aria-controls="paneEditor">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+          <span>Editor</span>
+        </button>
+        <button id="tabVisualizer" class="tab-btn" role="tab" aria-selected="false" aria-controls="paneVisualizer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="3" y1="15" x2="21" y2="15"></line>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+            <line x1="15" y1="3" x2="15" y2="21"></line>
+          </svg>
+          <span>DP Visualizer</span>
+        </button>
+        <button id="tabEditorial" class="tab-btn" role="tab" aria-selected="false" aria-controls="paneEditorial">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          <span>Editorial & Hints</span>
+        </button>
+
+        <div class="grow"></div>
+
+        <div class="lang-picker-wrapper">
+          <label for="langSelect" class="sr-only">Programming Language</label>
+          <div class="lang-select-box">
+            <span class="lang-dot"></span>
+            <select id="langSelect" aria-label="Programming Language">
+              <option value="python">Python 3.13</option>
+              <option value="cpp">C++ 17</option>
+              <option value="java">Java 17</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Pane 1: Editor Pane ──────────────────────────────── -->
+      <div id="paneEditor" class="tab-pane active" role="tabpanel" aria-labelledby="tabEditor">
+        <div class="toolbar">
+          <button id="run" class="btn-run" aria-label="Run code with stdin input">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span>Run</span>
+            <kbd class="shortcut-kbd">Ctrl+↵</kbd>
+          </button>
+          <button id="runTests" class="btn-judge" aria-label="Run all test cases">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Run Tests</span>
+            <kbd class="shortcut-kbd">Ctrl+⇧+↵</kbd>
+          </button>
+          <button id="reset" class="btn-ghost" aria-label="Reset code to starter template">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+            </svg>
+            <span>Reset</span>
+          </button>
+          <button id="copy" class="btn-ghost" aria-label="Copy code to clipboard">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy</span>
+          </button>
+
+          <div class="grow"></div>
+
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span id="status" class="status-text">Ready</span>
+          </div>
+        </div>
+
+        <div class="stdinPanel">
+          <div class="stdinHead" id="stdinHeadLabel">
+            <div class="stdin-title">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="4 17 10 11 4 5"></polyline>
+                <line x1="12" y1="19" x2="20" y2="19"></line>
+              </svg>
+              <span>STDIN (Single Test Input)</span>
+            </div>
+            <span class="stdin-hint">Arguments parsed as JSON per line. Run feeds this directly.</span>
+          </div>
+          <textarea
+            id="stdin"
+            spellcheck="false"
+            aria-label="Standard input (stdin)"
+            aria-labelledby="stdinHeadLabel"
+            placeholder="Enter input here..."
+          ></textarea>
+        </div>
+
+        <div
+          id="editor"
+          role="region"
+          aria-label="Monaco code editor"
+        ></div>
+
+        <div class="output" id="outputPane">
+          <div class="outhead">
+            <div class="terminal-dots" aria-hidden="true">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="terminal-title">Execution Console</span>
+            <div class="grow"></div>
+            <button id="clearOut" class="btn-terminal-action" aria-label="Clear console output">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              <span>Clear</span>
+            </button>
+          </div>
+          <pre
+            id="out"
+            aria-live="polite"
+            aria-label="Program output"
+          >Click "Run" to execute with STDIN, or "Run Tests" to evaluate against 50 high-constraint test cases.</pre>
+        </div>
+      </div><!-- #paneEditor -->
+
+      <!-- ── Pane 2: DP Table Visualizer Pane ─────────────────── -->
+      <div id="paneVisualizer" class="tab-pane" role="tabpanel" aria-labelledby="tabVisualizer" style="display:none;">
+        <div class="viz-header">
+          <div class="viz-title-group">
+            <span class="viz-badge">DP Matrix</span>
+            <b id="vizProblemTitle" class="viz-problem-name">DP Table Visualizer</b>
+            <span id="vizStepCounter" class="viz-step-badge">Step 0 / 0</span>
+          </div>
+          <div class="grow"></div>
+          <div class="viz-param-group">
+            <label for="vizParamInput" id="vizParamLabel">Parameter:</label>
+            <input type="text" id="vizParamInput" value="5" aria-labelledby="vizParamLabel">
+            <button id="vizBuildBtn" class="btn-subtle">Rebuild</button>
+          </div>
+        </div>
+
+        <div class="viz-controls">
+          <button id="vizReset" class="viz-ctrl-btn" aria-label="Reset visualization to step 0">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="19 20 9 12 19 4 19 20"></polygon>
+              <line x1="5" y1="19" x2="5" y2="5"></line>
+            </svg>
+            <span>Reset</span>
+          </button>
+          <button id="vizPrev" class="viz-ctrl-btn" aria-label="Step back one state transition">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            <span>Back</span>
+          </button>
+          <button id="vizPlay" class="viz-ctrl-btn viz-play-btn" aria-label="Play or pause auto-stepping">
+            <svg id="vizPlayIcon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span id="vizPlayText">Play</span>
+          </button>
+          <button id="vizNext" class="viz-ctrl-btn" aria-label="Step forward one state transition">
+            <span>Forward</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <div class="grow"></div>
+          <div class="viz-speed-group">
+            <label for="vizSpeed">Speed</label>
+            <select id="vizSpeed" aria-label="Playback speed">
+              <option value="1200">0.5x</option>
+              <option value="600" selected>1.0x</option>
+              <option value="300">2.0x</option>
+              <option value="120">5.0x</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="viz-legend" aria-hidden="true">
+          <div class="legend-item"><span class="legend-swatch active"></span> Active Cell [i, j]</div>
+          <div class="legend-item"><span class="legend-swatch dep"></span> Transition Dependencies</div>
+          <div class="legend-item"><span class="legend-swatch computed"></span> Computed Cell</div>
+        </div>
+
+        <div class="viz-grid-container" id="vizGridContainer" aria-label="Dynamic programming grid table">
+          <!-- Dynamic 1D or 2D table injected here -->
+        </div>
+
+        <div class="viz-state-card" id="vizStateCard" aria-live="polite">
+          <div class="viz-formula-row">
+            <span class="viz-pill">Transition</span>
+            <span id="vizStateFormula" class="viz-formula">dp[i] = ...</span>
+          </div>
+          <div id="vizStateExplanation" class="viz-desc">
+            Click "Forward" or "Play" to watch the DP table populate cell-by-cell.
+          </div>
+        </div>
+      </div><!-- #paneVisualizer -->
+
+      <!-- ── Pane 3: Editorial Pane ───────────────────────────── -->
+      <div id="paneEditorial" class="tab-pane" role="tabpanel" aria-labelledby="tabEditorial" style="display:none;">
+        <div class="editorial-container" id="editorialContainer">
+          <!-- Editorial injected here -->
+        </div>
+      </div><!-- #paneEditorial -->
+
+    </section><!-- .right -->
+
+  </main>
+
+  <!-- ── Test results modal ───────────────────────────────────── -->
+  <div
+    id="modal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+  >
+    <div class="modalbox">
+      <div class="modalTop">
+        <div class="modal-title-wrap">
+          <div class="modal-icon ac">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h2 id="modalTitle">Evaluation Verdict</h2>
+        </div>
+        <div class="grow"></div>
+        <button id="closeModal" class="btn-modal-close" aria-label="Close test results dialog">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ── Stats & Submissions History Modal ────────────────────── -->
+  <div
+    id="statsModal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="statsModalTitle"
+  >
+    <div class="modalbox modal-wide">
+      <div class="modalTop">
+        <div class="modal-title-wrap">
+          <div class="modal-icon stats">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 20V10"></path>
+              <path d="M12 20V4"></path>
+              <path d="M6 20v-6"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 id="statsModalTitle">Performance & Submission Analytics</h2>
+            <div class="modal-subtitle">Persisted SQLite Judge History · Parallel Benchmark Results</div>
+          </div>
+        </div>
+        <div class="grow"></div>
+        <button id="closeStatsModal" class="btn-modal-close" aria-label="Close stats dialog">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div id="statsModalBody">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <span class="kpi-label">Total Submissions</span>
+            <b id="kpiTotal" class="kpi-val">0</b>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Accepted (AC)</span>
+            <b id="kpiAc" class="kpi-val pass">0</b>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Acceptance Rate</span>
+            <b id="kpiRate" class="kpi-val">0%</b>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Unique Solved</span>
+            <b id="kpiSolved" class="kpi-val highlight">0 / 55</b>
+          </div>
+        </div>
+
+        <div class="history-section-header">
+          <h3>Submissions Log</h3>
+          <span class="history-badge">Live SQLite Store</span>
+        </div>
+        <div class="history-table-container">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Time</th>
+                <th>Problem</th>
+                <th>Language</th>
+                <th>Verdict</th>
+                <th>Passed</th>
+                <th>Runtime</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody">
+              <tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:24px;">Loading submissions history...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- App logic (deferred so DOM is ready) -->
+  <script src="app.js" defer></script>
+
+</body>
+</html>

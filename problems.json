@@ -1,0 +1,3046 @@
+[
+  {
+    "id": 1,
+    "dp": "DP 2",
+    "title": "Climbing Stairs",
+    "section": "1D DP",
+    "prompt": "Given n stairs, you can climb either 1 or 2 stairs at a time. Return the number of distinct ways to reach the top.",
+    "difficulty": "Easy",
+    "spec": {
+      "format": "Function signature: `def climb_stairs(n) -> int`",
+      "input": "An integer n, the number of stairs.",
+      "output": "Return the number of distinct ways to reach stair n when every move is either 1 or 2 stairs.",
+      "constraints": "1 \u2264 n \u2264 45",
+      "examples": [
+        [
+          "n = 2",
+          "2",
+          "(1+1, 2)"
+        ],
+        [
+          "n = 5",
+          "8",
+          "There are 8 valid sequences of 1-step and 2-step moves."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "n": 2
+        },
+        "expected": 2
+      },
+      {
+        "args": {
+          "n": 5
+        },
+        "expected": 8
+      },
+      {
+        "args": {
+          "n": 10
+        },
+        "expected": 89
+      }
+    ],
+    "fn": "climb_stairs"
+  },
+  {
+    "id": 2,
+    "dp": "DP 3",
+    "title": "Frog Jump",
+    "section": "1D DP",
+    "prompt": "A frog starts at the first stair and wants to reach the last. From stair i it can jump to i+1 or i+2. The energy cost of a jump is the absolute difference in heights. Find the minimum energy.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def frog_jump(heights) -> int`",
+      "input": "An integer array `heights`; the frog starts at index 0.",
+      "output": "Return the minimum total energy needed to reach the last index. A jump of 1 or 2 positions costs the absolute height difference.",
+      "constraints": "2 \u2264 n \u2264 1,000; 0 \u2264 heights[i] \u2264 10^4",
+      "examples": [
+        [
+          "heights = [10, 20, 30, 10]",
+          "20",
+          "0\u21921\u21923 costs 10+10."
+        ],
+        [
+          "heights = [30, 10, 60, 10, 60, 50]",
+          "40",
+          "Choose jumps that minimize the accumulated height difference."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "heights": [
+            10,
+            20,
+            30,
+            10
+          ]
+        },
+        "expected": 20
+      },
+      {
+        "args": {
+          "heights": [
+            30,
+            10,
+            60,
+            10,
+            60,
+            50
+          ]
+        },
+        "expected": 40
+      }
+    ],
+    "fn": "frog_jump"
+  },
+  {
+    "id": 3,
+    "dp": "DP 4",
+    "title": "Frog Jump with K Distance",
+    "section": "1D DP",
+    "prompt": "The frog can jump from stair i to any of the next k stairs. The cost is the absolute difference between the two heights. Find the minimum energy needed to reach the last stair.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def frog_jump_k(heights, k) -> int`",
+      "input": "An array `heights` and maximum jump distance `k`.",
+      "output": "Return the minimum energy needed to reach the last index. From i, jump to any index i+1 \u2026 i+k.",
+      "constraints": "2 \u2264 n \u2264 10^4; 1 \u2264 k \u2264 n; heights are non-negative",
+      "examples": [
+        [
+          "heights = [10, 20, 30, 10], k = 2",
+          "20",
+          "The best route is 0\u21921\u21923."
+        ],
+        [
+          "heights = [10, 50, 20, 30], k = 3",
+          "20",
+          "Jumping directly from 0 to 3 costs 20."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "heights": [
+            10,
+            20,
+            30,
+            10
+          ],
+          "k": 2
+        },
+        "expected": 20
+      },
+      {
+        "args": {
+          "heights": [
+            10,
+            50,
+            20,
+            30
+          ],
+          "k": 3
+        },
+        "expected": 20
+      }
+    ],
+    "fn": "frog_jump_k"
+  },
+  {
+    "id": 4,
+    "dp": "DP 5",
+    "title": "Maximum Sum of Non-Adjacent Elements",
+    "section": "1D DP",
+    "prompt": "Given an array of integers, choose a subset with no two chosen elements adjacent and maximize the sum.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def max_non_adjacent(nums) -> int`",
+      "input": "An integer array `nums`.",
+      "output": "Return the maximum sum obtainable by selecting elements so that no two selected indices are adjacent.",
+      "constraints": "1 \u2264 n \u2264 10^5; 0 \u2264 nums[i] \u2264 10^4",
+      "examples": [
+        [
+          "nums = [2, 1, 4, 9]",
+          "11",
+          "Choose 2 and 9."
+        ],
+        [
+          "nums = [2, 7, 9, 3, 1]",
+          "12",
+          "Choose 2, 9, 1."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            2,
+            1,
+            4,
+            9
+          ]
+        },
+        "expected": 11
+      },
+      {
+        "args": {
+          "nums": [
+            2,
+            7,
+            9,
+            3,
+            1
+          ]
+        },
+        "expected": 12
+      },
+      {
+        "args": {
+          "nums": [
+            5,
+            1,
+            1,
+            5
+          ]
+        },
+        "expected": 10
+      }
+    ],
+    "fn": "max_non_adjacent"
+  },
+  {
+    "id": 5,
+    "dp": "DP 6",
+    "title": "House Robber 2",
+    "section": "1D DP",
+    "prompt": "Houses are arranged in a circle. Robbing adjacent houses is forbidden. Find the maximum amount that can be robbed.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def house_robber_2(nums) -> int`",
+      "input": "An array `nums` representing money in houses arranged in a circle.",
+      "output": "Return the maximum amount that can be robbed without robbing two adjacent houses. The first and last houses are also adjacent.",
+      "constraints": "1 \u2264 n \u2264 10^5; 0 \u2264 nums[i] \u2264 10^4",
+      "examples": [
+        [
+          "nums = [2, 3, 2]",
+          "3",
+          "Rob the middle house."
+        ],
+        [
+          "nums = [1, 2, 3, 1]",
+          "4",
+          "Rob houses with 1 and 3."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            2,
+            3,
+            2
+          ]
+        },
+        "expected": 3
+      },
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            3,
+            1
+          ]
+        },
+        "expected": 4
+      },
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            1,
+            1
+          ]
+        },
+        "expected": 3
+      }
+    ],
+    "fn": "house_robber_2"
+  },
+  {
+    "id": 6,
+    "dp": "DP 7",
+    "title": "Ninja's Training",
+    "section": "2D/3D DP and DP on Grids",
+    "prompt": "For n days, choose one of three activities per day. Each activity gives points, but you cannot choose the same activity on consecutive days. Maximize total points.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def ninja_training(points) -> int`",
+      "input": "An n\u00d73 array `points`, where points[d][a] is the score from doing activity a on day d.",
+      "output": "Return the maximum total score if the same activity cannot be chosen on consecutive days.",
+      "constraints": "1 \u2264 n \u2264 10^5; 0 \u2264 points[d][a] \u2264 10^4",
+      "examples": [
+        [
+          "points = [[10,40,70],[20,50,80],[30,60,90]]",
+          "210",
+          "Choose activity 2, then 2 is forbidden on the next day, so choose another optimal activity, continuing accordingly."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "points": [
+            [
+              10,
+              40,
+              70
+            ],
+            [
+              20,
+              50,
+              80
+            ],
+            [
+              30,
+              60,
+              90
+            ]
+          ]
+        },
+        "expected": 210
+      },
+      {
+        "args": {
+          "points": [
+            [
+              10,
+              50,
+              30
+            ],
+            [
+              40,
+              20,
+              10
+            ]
+          ]
+        },
+        "expected": 90
+      }
+    ],
+    "fn": "ninja_training"
+  },
+  {
+    "id": 7,
+    "dp": "DP 8",
+    "title": "Grid Unique Paths",
+    "section": "2D/3D DP and DP on Grids",
+    "prompt": "Count the number of ways to move from the top-left to the bottom-right of an m x n grid when you can only move right or down.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def unique_paths(m, n) -> int`",
+      "input": "Grid dimensions m and n.",
+      "output": "Return the number of ways to move from the top-left cell to the bottom-right cell using only right and down moves.",
+      "constraints": "1 \u2264 m,n \u2264 100",
+      "examples": [
+        [
+          "m = 3, n = 2",
+          "3",
+          "There are three paths through a 3-row \u00d7 2-column grid."
+        ],
+        [
+          "m = 3, n = 7",
+          "28",
+          "Choose positions of the two down moves among eight total moves."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "m": 3,
+          "n": 2
+        },
+        "expected": 3
+      },
+      {
+        "args": {
+          "m": 3,
+          "n": 7
+        },
+        "expected": 28
+      },
+      {
+        "args": {
+          "m": 1,
+          "n": 5
+        },
+        "expected": 1
+      }
+    ],
+    "fn": "unique_paths"
+  },
+  {
+    "id": 8,
+    "dp": "DP 9",
+    "title": "Unique Paths 2",
+    "section": "2D/3D DP and DP on Grids",
+    "prompt": "Count paths through a grid with obstacles. You may move only right or down, and blocked cells cannot be visited.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def unique_paths_with_obstacles(grid) -> int`",
+      "input": "An m\u00d7n binary grid; 1 denotes an obstacle and 0 denotes a free cell.",
+      "output": "Return the number of valid top-left to bottom-right paths moving only right or down.",
+      "constraints": "1 \u2264 m,n \u2264 100; grid values are 0 or 1",
+      "examples": [
+        [
+          "grid = [[0,0,0],[0,1,0],[0,0,0]]",
+          "2",
+          "The center obstacle blocks paths through the middle."
+        ],
+        [
+          "grid = [[1]]",
+          "0",
+          "The starting cell is blocked."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "grid": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "expected": 2
+      },
+      {
+        "args": {
+          "grid": [
+            [
+              1
+            ]
+          ]
+        },
+        "expected": 0
+      },
+      {
+        "args": {
+          "grid": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "expected": 1
+      }
+    ],
+    "fn": "unique_paths_with_obstacles"
+  },
+  {
+    "id": 9,
+    "dp": "DP 10",
+    "title": "Minimum Path Sum in Grid",
+    "section": "2D/3D DP and DP on Grids",
+    "prompt": "Given a grid of non-negative numbers, move only right or down from top-left to bottom-right and minimize the sum of visited cells.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def min_path_sum(grid) -> int`",
+      "input": "An m\u00d7n grid of non-negative costs.",
+      "output": "Return the minimum cost of a path from the top-left to bottom-right, moving only right or down.",
+      "constraints": "1 \u2264 m,n \u2264 200; 0 \u2264 grid[i][j] \u2264 10^4",
+      "examples": [
+        [
+          "grid = [[1,3,1],[1,5,1],[4,2,1]]",
+          "7",
+          "One minimum path is 1\u21923\u21921\u21921\u21921."
+        ],
+        [
+          "grid = [[1,2,3],[4,5,6]]",
+          "12",
+          "Choose 1\u21922\u21923\u21926."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "grid": [
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              1,
+              5,
+              1
+            ],
+            [
+              4,
+              2,
+              1
+            ]
+          ]
+        },
+        "expected": 7
+      },
+      {
+        "args": {
+          "grid": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ]
+          ]
+        },
+        "expected": 12
+      }
+    ],
+    "fn": "min_path_sum"
+  },
+  {
+    "id": 10,
+    "dp": "DP 11",
+    "title": "Triangle",
+    "section": "2D/3D DP and DP on Grids",
+    "prompt": "Given a triangle of numbers, start at the top and move to adjacent numbers on the next row. Find the minimum path sum to the bottom.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def triangle_min_path(triangle) -> int`",
+      "input": "A triangular array; row i contains i+1 values.",
+      "output": "Return the minimum top-to-bottom path sum. From position j, move to j or j+1 in the next row.",
+      "constraints": "1 \u2264 rows \u2264 200; values may be negative",
+      "examples": [
+        [
+          "triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]",
+          "11",
+          "Path 2\u21923\u21925\u21921 has sum 11."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "triangle": [
+            [
+              2
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              6,
+              5,
+              7
+            ],
+            [
+              4,
+              1,
+              8,
+              3
+            ]
+          ]
+        },
+        "expected": 11
+      },
+      {
+        "args": {
+          "triangle": [
+            [
+              -10
+            ]
+          ]
+        },
+        "expected": -10
+      }
+    ],
+    "fn": "triangle_min_path"
+  },
+  {
+    "id": 11,
+    "dp": "DP 12",
+    "title": "Minimum/Maximum Falling Path Sum",
+    "section": "2D/3D DP and DP on Grids",
+    "prompt": "In a square matrix, start in any top-row cell and move to the next row by down-left, down, or down-right. Find the minimum falling path sum.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def min_falling_path(matrix) -> int`",
+      "input": "An n\u00d7n matrix of integers.",
+      "output": "Return the minimum sum of a falling path from the first row to the last. From column c, move to c-1, c, or c+1 in the next row.",
+      "constraints": "1 \u2264 n \u2264 200; values are integers",
+      "examples": [
+        [
+          "matrix = [[2,1,3],[6,5,4],[7,8,9]]",
+          "13",
+          "A minimum path is 1\u21925\u21927."
+        ],
+        [
+          "matrix = [[-19,57],[-40,-5]]",
+          "-59",
+          "Choose -19 then -40."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "matrix": [
+            [
+              2,
+              1,
+              3
+            ],
+            [
+              6,
+              5,
+              4
+            ],
+            [
+              7,
+              8,
+              9
+            ]
+          ]
+        },
+        "expected": 13
+      },
+      {
+        "args": {
+          "matrix": [
+            [
+              -19,
+              57
+            ],
+            [
+              -40,
+              -5
+            ]
+          ]
+        },
+        "expected": -59
+      }
+    ],
+    "fn": "min_falling_path"
+  },
+  {
+    "id": 12,
+    "dp": "DP 13",
+    "title": "Cherry Pickup II",
+    "section": "2D/3D DP and DP on Grids",
+    "prompt": "Two robots start in the first row of a grid at the leftmost and rightmost columns. Each moves down-left, down, or down-right. Maximize total cherries collected; a cell counts once if both robots occupy it.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def cherry_pickup_ii(grid) -> int`",
+      "input": "An r\u00d7c grid of non-negative cherries. Robot A starts at (0,0); Robot B starts at (0,c-1).",
+      "output": "Return the maximum cherries collected while both robots move to the last row. Each step changes a robot's column by -1, 0, or +1. A cell counts once if both robots share it.",
+      "constraints": "2 \u2264 r,c \u2264 70; 0 \u2264 grid[i][j] \u2264 100",
+      "examples": [
+        [
+          "grid = [[3,1,1],[2,5,1],[1,5,5],[2,1,1]]",
+          "24",
+          "The robots coordinate their paths to maximize distinct collected cherries."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "grid": [
+            [
+              3,
+              1,
+              1
+            ],
+            [
+              2,
+              5,
+              1
+            ],
+            [
+              1,
+              5,
+              5
+            ],
+            [
+              2,
+              1,
+              1
+            ]
+          ]
+        },
+        "expected": 24
+      },
+      {
+        "args": {
+          "grid": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        "expected": 4
+      }
+    ],
+    "fn": "cherry_pickup_ii"
+  },
+  {
+    "id": 13,
+    "dp": "DP 14",
+    "title": "Subset Sum Equals to Target",
+    "section": "DP on Subsequences",
+    "prompt": "Given an array and a target, determine whether some subset of the array has sum exactly equal to the target.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def subset_sum(nums, target) -> bool`",
+      "input": "An array of non-negative integers and a target sum.",
+      "output": "Return True if some subset of the array sums exactly to target; otherwise False.",
+      "constraints": "1 \u2264 n \u2264 200; 0 \u2264 nums[i] \u2264 10^4",
+      "examples": [
+        [
+          "nums = [1,2,3,4], target = 7",
+          "True",
+          "3+4=7."
+        ],
+        [
+          "nums = [2,3,7], target = 6",
+          "False",
+          "No subset totals 6."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "target": 7
+        },
+        "expected": true
+      },
+      {
+        "args": {
+          "nums": [
+            2,
+            3,
+            7
+          ],
+          "target": 6
+        },
+        "expected": false
+      },
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            5
+          ],
+          "target": 0
+        },
+        "expected": true
+      }
+    ],
+    "fn": "subset_sum"
+  },
+  {
+    "id": 14,
+    "dp": "DP 15",
+    "title": "Partition Equal Subset Sum",
+    "section": "DP on Subsequences",
+    "prompt": "Determine whether an array can be partitioned into two subsets with equal sum.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def can_partition(nums) -> bool`",
+      "input": "An array of positive integers.",
+      "output": "Return True when the array can be divided into two subsets with equal sum.",
+      "constraints": "1 \u2264 n \u2264 200; 1 \u2264 nums[i] \u2264 100",
+      "examples": [
+        [
+          "nums = [1,5,11,5]",
+          "True",
+          "The array can be split as [1,5,5] and [11]."
+        ],
+        [
+          "nums = [1,2,3,5]",
+          "False",
+          "The total sum is odd."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            1,
+            5,
+            11,
+            5
+          ]
+        },
+        "expected": true
+      },
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            3,
+            5
+          ]
+        },
+        "expected": false
+      }
+    ],
+    "fn": "can_partition"
+  },
+  {
+    "id": 15,
+    "dp": "DP 16",
+    "title": "Partition A Set Into Two Subsets With Minimum Absolute Sum Difference",
+    "section": "DP on Subsequences",
+    "prompt": "Partition the array into two subsets so that the absolute difference of their sums is as small as possible. Return that minimum difference.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def min_subset_sum_difference(nums) -> int`",
+      "input": "An array of non-negative integers.",
+      "output": "Split all elements into two subsets and minimize the absolute difference between their sums.",
+      "constraints": "1 \u2264 n \u2264 200; 0 \u2264 nums[i] \u2264 100",
+      "examples": [
+        [
+          "nums = [1,2,3,4]",
+          "0",
+          "Split into [1,4] and [2,3]."
+        ],
+        [
+          "nums = [8,6,5]",
+          "3",
+          "For example, 8+5 versus 6 gives difference 7; the optimum is 3."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "expected": 0
+      },
+      {
+        "args": {
+          "nums": [
+            8,
+            6,
+            5
+          ]
+        },
+        "expected": 3
+      }
+    ],
+    "fn": "min_subset_sum_difference"
+  },
+  {
+    "id": 16,
+    "dp": "DP 17",
+    "title": "Count Subsets with Sum K",
+    "section": "DP on Subsequences",
+    "prompt": "Count the number of subsets whose elements sum exactly to K. Handle zeros correctly.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def count_subsets(nums, k) -> int`",
+      "input": "An array of non-negative integers and a target sum k.",
+      "output": "Return the number of subsets whose elements add up exactly to k.",
+      "constraints": "1 \u2264 n \u2264 200; 0 \u2264 nums[i] \u2264 10^4; return the exact count or apply the platform's required modulus.",
+      "examples": [
+        [
+          "nums = [1,2,2,3], k = 3",
+          "3",
+          "Subsets are {1,2(first)}, {1,2(second)}, and {3}."
+        ],
+        [
+          "nums = [0,0,1], k = 1",
+          "4",
+          "Every selection of the two zeros can accompany the 1."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            2,
+            3
+          ],
+          "k": 3
+        },
+        "expected": 3
+      },
+      {
+        "args": {
+          "nums": [
+            0,
+            0,
+            1
+          ],
+          "k": 1
+        },
+        "expected": 4
+      },
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "k": 7
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "count_subsets"
+  },
+  {
+    "id": 17,
+    "dp": "DP 18",
+    "title": "Count Partitions With Given Difference",
+    "section": "DP on Subsequences",
+    "prompt": "Count partitions of the array into two subsets whose sum difference equals a given target difference.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def count_partitions(nums, diff) -> int`",
+      "input": "An array of non-negative integers and an integer difference diff.",
+      "output": "Count partitions into two subsets S1 and S2 such that sum(S1) - sum(S2) = diff.",
+      "constraints": "1 \u2264 n \u2264 200; 0 \u2264 nums[i] \u2264 100; use the modulus specified by your chosen judge if needed.",
+      "examples": [
+        [
+          "nums = [1,1,2,3], diff = 1",
+          "3",
+          "There are three valid assignments of the elements to the two subsets."
+        ],
+        [
+          "nums = [1,2,3,4], diff = 3",
+          "0",
+          "No partition produces difference 3."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            1,
+            1,
+            2,
+            3
+          ],
+          "diff": 1
+        },
+        "expected": 3
+      },
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "diff": 3
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "count_partitions"
+  },
+  {
+    "id": 18,
+    "dp": "DP 19",
+    "title": "0/1 Knapsack",
+    "section": "DP on Subsequences",
+    "prompt": "Given n items with weights and values and a knapsack capacity, choose each item at most once to maximize total value without exceeding capacity.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def knapsack_01(weights, values, capacity) -> int`",
+      "input": "n items with a weight and value for each item, plus a knapsack capacity. Each item may be chosen at most once.",
+      "output": "Return the maximum value whose total weight does not exceed capacity.",
+      "constraints": "1 \u2264 n \u2264 1,000; 1 \u2264 weights[i] \u2264 capacity \u2264 10^4; values are non-negative",
+      "examples": [
+        [
+          "weights=[1,3,4,5], values=[1,4,5,7], capacity=7",
+          "9",
+          "Choose weights 3 and 4 for value 9."
+        ],
+        [
+          "weights=[2,3], values=[4,5], capacity=1",
+          "0",
+          "No item fits."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "weights": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "values": [
+            1,
+            4,
+            5,
+            7
+          ],
+          "capacity": 7
+        },
+        "expected": 9
+      },
+      {
+        "args": {
+          "weights": [
+            2,
+            3
+          ],
+          "values": [
+            4,
+            5
+          ],
+          "capacity": 1
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "knapsack_01"
+  },
+  {
+    "id": 19,
+    "dp": "DP 20",
+    "title": "Minimum Coins",
+    "section": "DP on Subsequences",
+    "prompt": "Given coin denominations with unlimited supply and a target amount, return the minimum number of coins needed, or -1 if impossible.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def min_coins(coins, amount) -> int`",
+      "input": "Coin denominations `coins` and a target amount. Each denomination can be used unlimited times.",
+      "output": "Return the minimum number of coins needed to make amount, or -1 when it is impossible.",
+      "constraints": "1 \u2264 len(coins) \u2264 20; 0 \u2264 amount \u2264 10^4; coin values are positive",
+      "examples": [
+        [
+          "coins=[1,2,5], amount=11",
+          "3",
+          "5+5+1."
+        ],
+        [
+          "coins=[2], amount=3",
+          "-1",
+          "No combination makes 3."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "coins": [
+            1,
+            2,
+            5
+          ],
+          "amount": 11
+        },
+        "expected": 3
+      },
+      {
+        "args": {
+          "coins": [
+            2
+          ],
+          "amount": 3
+        },
+        "expected": -1
+      },
+      {
+        "args": {
+          "coins": [
+            1
+          ],
+          "amount": 0
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "min_coins"
+  },
+  {
+    "id": 20,
+    "dp": "DP 21",
+    "title": "Target Sum",
+    "section": "DP on Subsequences",
+    "prompt": "Assign either + or - to every number so that the resulting expression equals a target. Count the number of valid assignments.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def target_sum(nums, target) -> int`",
+      "input": "A list of non-negative integers. Put either '+' or '-' before every element.",
+      "output": "Return how many sign assignments evaluate to target.",
+      "constraints": "1 \u2264 n \u2264 20; 0 \u2264 nums[i] \u2264 1,000",
+      "examples": [
+        [
+          "nums=[1,1,1,1,1], target=3",
+          "5",
+          "Five sign assignments produce 3."
+        ],
+        [
+          "nums=[1], target=2",
+          "0",
+          "The only possible results are +1 and -1."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "target": 3
+        },
+        "expected": 5
+      },
+      {
+        "args": {
+          "nums": [
+            1
+          ],
+          "target": 2
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "target_sum"
+  },
+  {
+    "id": 21,
+    "dp": "DP 22",
+    "title": "Coin Change 2",
+    "section": "DP on Subsequences",
+    "prompt": "Given unlimited coins and an amount, count the number of combinations that make the amount. Order does not matter.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def coin_change_combinations(coins, amount) -> int`",
+      "input": "Coin denominations with unlimited supply and a target amount.",
+      "output": "Return the number of distinct combinations that make amount; different orders of the same coins count once.",
+      "constraints": "1 \u2264 len(coins) \u2264 300; 0 \u2264 amount \u2264 5,000",
+      "examples": [
+        [
+          "coins=[1,2,5], amount=5",
+          "4",
+          "Combinations: 5, 2+2+1, 2+1+1+1, 1+1+1+1+1."
+        ],
+        [
+          "coins=[2], amount=3",
+          "0",
+          "No combination exists."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "coins": [
+            1,
+            2,
+            5
+          ],
+          "amount": 5
+        },
+        "expected": 4
+      },
+      {
+        "args": {
+          "coins": [
+            2
+          ],
+          "amount": 3
+        },
+        "expected": 0
+      },
+      {
+        "args": {
+          "coins": [
+            10
+          ],
+          "amount": 10
+        },
+        "expected": 1
+      }
+    ],
+    "fn": "coin_change_combinations"
+  },
+  {
+    "id": 22,
+    "dp": "DP 23",
+    "title": "Unbounded Knapsack",
+    "section": "DP on Subsequences",
+    "prompt": "Given item weights and values with unlimited copies, maximize value without exceeding the knapsack capacity.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def unbounded_knapsack(weights, values, capacity) -> int`",
+      "input": "Item weights and values with unlimited copies allowed, plus capacity.",
+      "output": "Return the maximum value that fits within capacity.",
+      "constraints": "1 \u2264 n \u2264 1,000; weights are positive and values are non-negative",
+      "examples": [
+        [
+          "weights=[2,4,6], values=[5,11,13], capacity=10",
+          "27",
+          "Take the weight-2 item five times."
+        ],
+        [
+          "weights=[5], values=[10], capacity=4",
+          "0",
+          "Nothing fits."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "weights": [
+            2,
+            4,
+            6
+          ],
+          "values": [
+            5,
+            11,
+            13
+          ],
+          "capacity": 10
+        },
+        "expected": 27
+      },
+      {
+        "args": {
+          "weights": [
+            5
+          ],
+          "values": [
+            10
+          ],
+          "capacity": 4
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "unbounded_knapsack"
+  },
+  {
+    "id": 23,
+    "dp": "DP 24",
+    "title": "Rod Cutting Problem",
+    "section": "DP on Subsequences",
+    "prompt": "Given prices for rod pieces of every length, cut a rod of length n to maximize the total obtainable price. Each length can be used multiple times.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def rod_cut(price, n) -> int`",
+      "input": "An array `price` where price[i-1] is the selling price of a rod piece of length i, plus total rod length n.",
+      "output": "Return the maximum revenue obtainable by cutting the rod into pieces of integer lengths.",
+      "constraints": "1 \u2264 n \u2264 len(price) \u2264 1,000; prices are non-negative",
+      "examples": [
+        [
+          "price=[2,5,7,8,10], n=5",
+          "12",
+          "Cut into lengths 2+2+1 for 5+5+2."
+        ],
+        [
+          "price=[3,5,8,9,10,17,17,20], n=8",
+          "24",
+          "An optimal cutting achieves revenue 24."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "price": [
+            2,
+            5,
+            7,
+            8,
+            10
+          ],
+          "n": 5
+        },
+        "expected": 12
+      },
+      {
+        "args": {
+          "price": [
+            3,
+            5,
+            8,
+            9,
+            10,
+            17,
+            17,
+            20
+          ],
+          "n": 8
+        },
+        "expected": 24
+      }
+    ],
+    "fn": "rod_cut"
+  },
+  {
+    "id": 24,
+    "dp": "DP 25",
+    "title": "Longest Common Subsequence",
+    "section": "DP on Strings",
+    "prompt": "Given two strings, find the length of their longest common subsequence while preserving character order.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def lcs_length(a, b) -> int`",
+      "input": "Two strings a and b.",
+      "output": "Return the length of their longest common subsequence.",
+      "constraints": "0 \u2264 len(a),len(b) \u2264 1,000; strings contain lowercase letters",
+      "examples": [
+        [
+          "a=\"abcde\", b=\"ace\"",
+          "3",
+          "One LCS is \"ace\"."
+        ],
+        [
+          "a=\"abc\", b=\"abc\"",
+          "3",
+          "The complete string is common."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "a": "abcde",
+          "b": "ace"
+        },
+        "expected": 3
+      },
+      {
+        "args": {
+          "a": "abc",
+          "b": "abc"
+        },
+        "expected": 3
+      },
+      {
+        "args": {
+          "a": "abc",
+          "b": "def"
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "lcs_length"
+  },
+  {
+    "id": 25,
+    "dp": "DP 26",
+    "title": "Print Longest Common Subsequence",
+    "section": "DP on Strings",
+    "prompt": "Given two strings, construct and return one longest common subsequence, not only its length.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def print_lcs(a, b) -> str`",
+      "input": "Two strings a and b.",
+      "output": "Return any one longest common subsequence of a and b.",
+      "constraints": "0 \u2264 lengths \u2264 1,000",
+      "examples": [
+        [
+          "a=\"abcde\", b=\"bdgek\"",
+          "\"bd\"",
+          "\"bd\" is a longest common subsequence."
+        ],
+        [
+          "a=\"abc\", b=\"def\"",
+          "\"\"",
+          "No common character exists."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "a": "abcde",
+          "b": "bdgek"
+        },
+        "expected": "bd"
+      },
+      {
+        "args": {
+          "a": "abc",
+          "b": "def"
+        },
+        "expected": ""
+      }
+    ],
+    "fn": "print_lcs"
+  },
+  {
+    "id": 26,
+    "dp": "DP 27",
+    "title": "Longest Common Substring",
+    "section": "DP on Strings",
+    "prompt": "Given two strings, find the maximum length of a contiguous substring appearing in both strings.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def longest_common_substring(a, b) -> int`",
+      "input": "Two strings a and b.",
+      "output": "Return the length of the longest contiguous substring occurring in both strings.",
+      "constraints": "0 \u2264 lengths \u2264 1,000",
+      "examples": [
+        [
+          "a=\"abcjklp\", b=\"acjkp\"",
+          "3",
+          "\"jkl\" is not fully present; the longest common contiguous match has length 2 in this example."
+        ],
+        [
+          "a=\"abcdxyz\", b=\"xyzabcd\"",
+          "4",
+          "Either \"abcd\" or \"xyz\"; the maximum is 4."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "a": "abcdxyz",
+          "b": "xyzabcd"
+        },
+        "expected": 4
+      },
+      {
+        "args": {
+          "a": "abc",
+          "b": "xyz"
+        },
+        "expected": 0
+      },
+      {
+        "args": {
+          "a": "abcdef",
+          "b": "zabcf"
+        },
+        "expected": 3
+      }
+    ],
+    "fn": "longest_common_substring"
+  },
+  {
+    "id": 27,
+    "dp": "DP 28",
+    "title": "Longest Palindromic Subsequence",
+    "section": "DP on Strings",
+    "prompt": "Find the length of the longest subsequence of a string that reads the same forward and backward.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def lps_length(s) -> int`",
+      "input": "A string s.",
+      "output": "Return the length of its longest palindromic subsequence.",
+      "constraints": "1 \u2264 len(s) \u2264 1,000",
+      "examples": [
+        [
+          "s=\"bbbab\"",
+          "4",
+          "One longest palindromic subsequence is \"bbbb\"."
+        ],
+        [
+          "s=\"cbbd\"",
+          "2",
+          "\"bb\" is a longest palindromic subsequence."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "s": "bbbab"
+        },
+        "expected": 4
+      },
+      {
+        "args": {
+          "s": "cbbd"
+        },
+        "expected": 2
+      }
+    ],
+    "fn": "lps_length"
+  },
+  {
+    "id": 28,
+    "dp": "DP 29",
+    "title": "Minimum Insertions to Make String Palindrome",
+    "section": "DP on Strings",
+    "prompt": "Return the minimum number of insertions needed to turn a string into a palindrome.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def min_insertions_palindrome(s) -> int`",
+      "input": "A string s.",
+      "output": "Return the minimum number of character insertions needed to make s a palindrome.",
+      "constraints": "1 \u2264 len(s) \u2264 1,000",
+      "examples": [
+        [
+          "s=\"mbadm\"",
+          "2",
+          "For example, insert characters to obtain a palindrome such as \"mbdadbm\"."
+        ],
+        [
+          "s=\"zzazz\"",
+          "0",
+          "It is already a palindrome."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "s": "mbadm"
+        },
+        "expected": 2
+      },
+      {
+        "args": {
+          "s": "zzazz"
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "min_insertions_palindrome"
+  },
+  {
+    "id": 29,
+    "dp": "DP 30",
+    "title": "Minimum Insertions/Deletions to Convert String A to String B",
+    "section": "DP on Strings",
+    "prompt": "Find the minimum number of insertions and deletions required to transform string A into string B.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def min_insert_delete(a, b) -> int`",
+      "input": "Two strings a and b.",
+      "output": "Return the minimum number of insertions plus deletions needed to transform a into b. Substitution is not allowed.",
+      "constraints": "0 \u2264 lengths \u2264 1,000",
+      "examples": [
+        [
+          "a=\"heap\", b=\"pea\"",
+          "3",
+          "Delete h, delete one extra character, and insert p/e as needed; the optimum is 3."
+        ],
+        [
+          "a=\"abc\", b=\"abc\"",
+          "0",
+          "No edits are required."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "a": "heap",
+          "b": "pea"
+        },
+        "expected": 3
+      },
+      {
+        "args": {
+          "a": "abc",
+          "b": "abc"
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "min_insert_delete"
+  },
+  {
+    "id": 30,
+    "dp": "DP 31",
+    "title": "Shortest Common Supersequence",
+    "section": "DP on Strings",
+    "prompt": "Return the shortest string that contains both input strings as subsequences.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def shortest_common_supersequence(a, b) -> str`",
+      "input": "Two strings a and b.",
+      "output": "Return any shortest string that contains both a and b as subsequences.",
+      "constraints": "0 \u2264 lengths \u2264 1,000",
+      "examples": [
+        [
+          "a=\"abac\", b=\"cab\"",
+          "\"cabac\"",
+          "\"cabac\" contains both strings as subsequences."
+        ],
+        [
+          "a=\"geek\", b=\"eke\"",
+          "\"geeke\"",
+          "One shortest common supersequence."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "a": "abac",
+          "b": "cab"
+        },
+        "expected": "cabac"
+      },
+      {
+        "args": {
+          "a": "",
+          "b": "abc"
+        },
+        "expected": "abc"
+      }
+    ],
+    "fn": "shortest_common_supersequence"
+  },
+  {
+    "id": 31,
+    "dp": "DP 32",
+    "title": "Distinct Subsequences",
+    "section": "DP on Strings",
+    "prompt": "Given strings s and t, count how many distinct subsequences of s equal t.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def num_distinct(s, t) -> int`",
+      "input": "Two strings s and t.",
+      "output": "Count how many distinct subsequences of s are exactly equal to t.",
+      "constraints": "0 \u2264 len(t) \u2264 len(s) \u2264 1,000",
+      "examples": [
+        [
+          "s=\"rabbbit\", t=\"rabbit\"",
+          "3",
+          "There are three ways to delete one of the repeated b characters."
+        ],
+        [
+          "s=\"babgbag\", t=\"bag\"",
+          "5",
+          "There are five distinct index selections producing bag."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "s": "rabbbit",
+          "t": "rabbit"
+        },
+        "expected": 3
+      },
+      {
+        "args": {
+          "s": "babgbag",
+          "t": "bag"
+        },
+        "expected": 5
+      }
+    ],
+    "fn": "num_distinct"
+  },
+  {
+    "id": 32,
+    "dp": "DP 33",
+    "title": "Edit Distance",
+    "section": "DP on Strings",
+    "prompt": "Find the minimum number of insertions, deletions, and substitutions required to transform one string into another.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def edit_distance(a, b) -> int`",
+      "input": "Two strings a and b.",
+      "output": "Return the minimum number of single-character insertions, deletions, or replacements needed to transform a into b.",
+      "constraints": "0 \u2264 lengths \u2264 500",
+      "examples": [
+        [
+          "a=\"horse\", b=\"ros\"",
+          "3",
+          "One optimal sequence has three edits."
+        ],
+        [
+          "a=\"intention\", b=\"execution\"",
+          "5",
+          "The classic minimum edit distance is 5."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "a": "horse",
+          "b": "ros"
+        },
+        "expected": 3
+      },
+      {
+        "args": {
+          "a": "intention",
+          "b": "execution"
+        },
+        "expected": 5
+      },
+      {
+        "args": {
+          "a": "",
+          "b": "abc"
+        },
+        "expected": 3
+      }
+    ],
+    "fn": "edit_distance"
+  },
+  {
+    "id": 33,
+    "dp": "DP 34",
+    "title": "Wildcard Matching",
+    "section": "DP on Strings",
+    "prompt": "Match a text against a pattern where '?' matches one character and '*' matches any sequence of characters.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def wildcard_match(s, pattern) -> bool`",
+      "input": "A text s and pattern p. '?' matches exactly one character; '*' matches any sequence, including empty.",
+      "output": "Return True if the whole text matches the whole pattern.",
+      "constraints": "0 \u2264 len(s),len(p) \u2264 200",
+      "examples": [
+        [
+          "s=\"aa\", pattern=\"a\"",
+          "False",
+          "The pattern matches only one character."
+        ],
+        [
+          "s=\"aa\", pattern=\"*\"",
+          "True",
+          "'*' can consume both characters."
+        ],
+        [
+          "s=\"cb\", pattern=\"?a\"",
+          "False",
+          "The second character does not match a."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "s": "aa",
+          "pattern": "a"
+        },
+        "expected": false
+      },
+      {
+        "args": {
+          "s": "aa",
+          "pattern": "*"
+        },
+        "expected": true
+      },
+      {
+        "args": {
+          "s": "cb",
+          "pattern": "?a"
+        },
+        "expected": false
+      },
+      {
+        "args": {
+          "s": "adceb",
+          "pattern": "*a*b"
+        },
+        "expected": true
+      }
+    ],
+    "fn": "wildcard_match"
+  },
+  {
+    "id": 34,
+    "dp": "DP 35",
+    "title": "Best Time to Buy and Sell Stock",
+    "section": "DP on Stocks",
+    "prompt": "Given daily stock prices, make at most one buy and one sell. Return the maximum profit.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def max_profit_one_transaction(prices) -> int`",
+      "input": "Daily stock prices.",
+      "output": "Choose one buy day before one sell day and maximize profit. You may also make no transaction.",
+      "constraints": "1 \u2264 n \u2264 10^5; 0 \u2264 prices[i] \u2264 10^5",
+      "examples": [
+        [
+          "prices=[7,1,5,3,6,4]",
+          "5",
+          "Buy at 1 and sell at 6."
+        ],
+        [
+          "prices=[7,6,4,3,1]",
+          "0",
+          "Prices only fall, so do nothing."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "prices": [
+            7,
+            1,
+            5,
+            3,
+            6,
+            4
+          ]
+        },
+        "expected": 5
+      },
+      {
+        "args": {
+          "prices": [
+            7,
+            6,
+            4,
+            3,
+            1
+          ]
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "max_profit_one_transaction"
+  },
+  {
+    "id": 35,
+    "dp": "DP 36",
+    "title": "Buy and Sell Stock II",
+    "section": "DP on Stocks",
+    "prompt": "You may complete unlimited buy/sell transactions, but must sell before buying again. Maximize profit.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def max_profit_unlimited(prices) -> int`",
+      "input": "Daily stock prices. You may make as many complete buy/sell transactions as you like, holding at most one share.",
+      "output": "Return the maximum total profit.",
+      "constraints": "1 \u2264 n \u2264 10^5",
+      "examples": [
+        [
+          "prices=[7,1,5,3,6,4]",
+          "7",
+          "Profit from 1\u21925 and 3\u21926."
+        ],
+        [
+          "prices=[1,2,3,4,5]",
+          "4",
+          "Buy once at 1 and sell at 5, or accumulate equivalent rises."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "prices": [
+            7,
+            1,
+            5,
+            3,
+            6,
+            4
+          ]
+        },
+        "expected": 7
+      },
+      {
+        "args": {
+          "prices": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "expected": 4
+      }
+    ],
+    "fn": "max_profit_unlimited"
+  },
+  {
+    "id": 36,
+    "dp": "DP 37",
+    "title": "Buy and Sell Stocks III",
+    "section": "DP on Stocks",
+    "prompt": "You may complete at most two transactions. Maximize profit.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def max_profit_two_transactions(prices) -> int`",
+      "input": "Daily prices; at most two complete transactions are allowed.",
+      "output": "Return the maximum achievable profit.",
+      "constraints": "1 \u2264 n \u2264 10^5",
+      "examples": [
+        [
+          "prices=[3,3,5,0,0,3,1,4]",
+          "6",
+          "One optimum is 0\u21923 and 1\u21924."
+        ],
+        [
+          "prices=[1,2,3,4,5]",
+          "4",
+          "Only one profitable run is needed."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "prices": [
+            3,
+            3,
+            5,
+            0,
+            0,
+            3,
+            1,
+            4
+          ]
+        },
+        "expected": 6
+      },
+      {
+        "args": {
+          "prices": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "expected": 4
+      }
+    ],
+    "fn": "max_profit_two_transactions"
+  },
+  {
+    "id": 37,
+    "dp": "DP 38",
+    "title": "Buy and Stock Sell IV",
+    "section": "DP on Stocks",
+    "prompt": "You may complete at most k transactions. Maximize profit.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def max_profit_k_transactions(prices, k) -> int`",
+      "input": "Daily prices and a maximum number k of complete transactions.",
+      "output": "Return the maximum profit with at most k buy\u2192sell pairs.",
+      "constraints": "1 \u2264 n \u2264 10^5; 0 \u2264 k \u2264 n/2",
+      "examples": [
+        [
+          "k=2, prices=[2,4,1,7]",
+          "8",
+          "Buy 2\u21924 and 1\u21927."
+        ],
+        [
+          "k=0, prices=[1,5]",
+          "0",
+          "No transaction is allowed."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "prices": [
+            2,
+            4,
+            1,
+            7
+          ],
+          "k": 2
+        },
+        "expected": 8
+      },
+      {
+        "args": {
+          "prices": [
+            1,
+            5
+          ],
+          "k": 0
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "max_profit_k_transactions"
+  },
+  {
+    "id": 38,
+    "dp": "DP 39",
+    "title": "Buy and Sell Stocks With Cooldown",
+    "section": "DP on Stocks",
+    "prompt": "After selling a stock, you must wait one day before buying again. Maximize profit.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def max_profit_cooldown(prices) -> int`",
+      "input": "Daily prices. After selling, one full day must pass before another purchase.",
+      "output": "Return the maximum profit with unlimited transactions under the cooldown rule.",
+      "constraints": "1 \u2264 n \u2264 5,000",
+      "examples": [
+        [
+          "prices=[1,2,3,0,2]",
+          "3",
+          "Buy 1\u2192sell 3, cooldown, then buy 0\u2192sell 2."
+        ],
+        [
+          "prices=[1]",
+          "0",
+          "No transaction can be completed."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "prices": [
+            1,
+            2,
+            3,
+            0,
+            2
+          ]
+        },
+        "expected": 3
+      },
+      {
+        "args": {
+          "prices": [
+            1
+          ]
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "max_profit_cooldown"
+  },
+  {
+    "id": 39,
+    "dp": "DP 40",
+    "title": "Buy and Sell Stocks With Transaction Fee",
+    "section": "DP on Stocks",
+    "prompt": "Each completed transaction incurs a fixed fee. You may trade multiple times. Maximize profit.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def max_profit_fee(prices, fee) -> int`",
+      "input": "Daily prices and a fixed transaction fee charged whenever a share is sold.",
+      "output": "Return the maximum profit with unlimited transactions.",
+      "constraints": "1 \u2264 n \u2264 10^5; fee \u2265 0",
+      "examples": [
+        [
+          "prices=[1,3,2,8,4,9], fee=2",
+          "8",
+          "Two profitable moves remain after fees."
+        ],
+        [
+          "prices=[1,2], fee=5",
+          "0",
+          "The fee makes the trade unprofitable."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "prices": [
+            1,
+            3,
+            2,
+            8,
+            4,
+            9
+          ],
+          "fee": 2
+        },
+        "expected": 8
+      },
+      {
+        "args": {
+          "prices": [
+            1,
+            2
+          ],
+          "fee": 5
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "max_profit_fee"
+  },
+  {
+    "id": 40,
+    "dp": "DP 41",
+    "title": "Longest Increasing Subsequence",
+    "section": "DP on LIS",
+    "prompt": "Given an array, find the length of the longest strictly increasing subsequence.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def lis_length(nums) -> int`",
+      "input": "An integer array.",
+      "output": "Return the length of the longest strictly increasing subsequence.",
+      "constraints": "1 \u2264 n \u2264 2,500 for O(n\u00b2) DP; values fit 32-bit signed integers",
+      "examples": [
+        [
+          "nums=[10,9,2,5,3,7,101,18]",
+          "4",
+          "One LIS is [2,3,7,101]."
+        ],
+        [
+          "nums=[0,1,0,3,2,3]",
+          "4",
+          "For example [0,1,2,3]."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            10,
+            9,
+            2,
+            5,
+            3,
+            7,
+            101,
+            18
+          ]
+        },
+        "expected": 4
+      },
+      {
+        "args": {
+          "nums": [
+            0,
+            1,
+            0,
+            3,
+            2,
+            3
+          ]
+        },
+        "expected": 4
+      }
+    ],
+    "fn": "lis_length"
+  },
+  {
+    "id": 41,
+    "dp": "DP 42",
+    "title": "Printing Longest Increasing Subsequence",
+    "section": "DP on LIS",
+    "prompt": "Given an array, output one longest strictly increasing subsequence, not just its length.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def print_lis(nums) -> list[int]`",
+      "input": "An integer array.",
+      "output": "Return any one longest strictly increasing subsequence.",
+      "constraints": "1 \u2264 n \u2264 2,500",
+      "examples": [
+        [
+          "nums=[10,9,2,5,3,7,101,18]",
+          "[2,3,7,101]",
+          "Any valid LIS is accepted."
+        ],
+        [
+          "nums=[7,7,7,7]",
+          "[7]",
+          "Strict increase means only one element can be selected."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            10,
+            9,
+            2,
+            5,
+            3,
+            7,
+            101,
+            18
+          ]
+        },
+        "expectedOneOf": [
+          [
+            2,
+            3,
+            7,
+            101
+          ],
+          [
+            2,
+            5,
+            7,
+            101
+          ],
+          [
+            2,
+            3,
+            7,
+            18
+          ]
+        ]
+      },
+      {
+        "args": {
+          "nums": [
+            7,
+            7,
+            7,
+            7
+          ]
+        },
+        "expectedOneOf": [
+          [
+            7
+          ]
+        ]
+      }
+    ],
+    "fn": "print_lis"
+  },
+  {
+    "id": 42,
+    "dp": "DP 43",
+    "title": "Longest Increasing Subsequence \u2014 Binary Search",
+    "section": "DP on LIS",
+    "prompt": "Solve LIS using the O(n log n) tails/binary-search technique and return its length.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def lis_length_nlogn(nums) -> int`",
+      "input": "An integer array.",
+      "output": "Return the LIS length using the tails + binary-search method.",
+      "constraints": "1 \u2264 n \u2264 10^5",
+      "examples": [
+        [
+          "nums=[10,9,2,5,3,7,101,18]",
+          "4",
+          "The LIS length is 4."
+        ],
+        [
+          "nums=[3,5,6,2,5,4,19,5,6,7,12]",
+          "6",
+          "One optimal increasing subsequence has length 6."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            10,
+            9,
+            2,
+            5,
+            3,
+            7,
+            101,
+            18
+          ]
+        },
+        "expected": 4
+      },
+      {
+        "args": {
+          "nums": [
+            3,
+            5,
+            6,
+            2,
+            5,
+            4,
+            19,
+            5,
+            6,
+            7,
+            12
+          ]
+        },
+        "expected": 6
+      }
+    ],
+    "fn": "lis_length_nlogn"
+  },
+  {
+    "id": 43,
+    "dp": "DP 44",
+    "title": "Largest Divisible Subset",
+    "section": "DP on LIS",
+    "prompt": "Given distinct positive integers, find the largest subset such that for every pair, one number divides the other.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def largest_divisible_subset(nums) -> list[int]`",
+      "input": "Distinct positive integers.",
+      "output": "Return any largest subset where for every pair a,b, either a divides b or b divides a.",
+      "constraints": "1 \u2264 n \u2264 1,000; 1 \u2264 nums[i] \u2264 10^9",
+      "examples": [
+        [
+          "nums=[1,2,3]",
+          "[1,2]",
+          "Either [1,2] or [1,3] has maximum size."
+        ],
+        [
+          "nums=[1,2,4,8]",
+          "[1,2,4,8]",
+          "Every element divides the next."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            3
+          ]
+        },
+        "predicate": "divisible_subset",
+        "expectedSize": 2
+      },
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            4,
+            8
+          ]
+        },
+        "predicate": "divisible_subset",
+        "expectedSize": 4
+      }
+    ],
+    "fn": "largest_divisible_subset"
+  },
+  {
+    "id": 44,
+    "dp": "DP 45",
+    "title": "Longest String Chain",
+    "section": "DP on LIS",
+    "prompt": "Find the longest chain of words where each next word can be formed by inserting exactly one character into the previous word.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def longest_string_chain(words) -> int`",
+      "input": "A list of unique lowercase words.",
+      "output": "Return the maximum chain length where each next word can be created by inserting exactly one character into the previous word.",
+      "constraints": "1 \u2264 n \u2264 1,000; word length \u2264 16",
+      "examples": [
+        [
+          "words=[\"a\",\"b\",\"ba\",\"bca\",\"bda\",\"bdca\"]",
+          "4",
+          "One chain is a\u2192ba\u2192bca\u2192bdca."
+        ],
+        [
+          "words=[\"xbc\",\"pcxbcf\",\"xb\",\"cxbc\",\"pcxbc\"]",
+          "5",
+          "The words can form a chain of length 5."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "words": [
+            "a",
+            "b",
+            "ba",
+            "bca",
+            "bda",
+            "bdca"
+          ]
+        },
+        "expected": 4
+      },
+      {
+        "args": {
+          "words": [
+            "xbc",
+            "pcxbcf",
+            "xb",
+            "cxbc",
+            "pcxbc"
+          ]
+        },
+        "expected": 5
+      }
+    ],
+    "fn": "longest_string_chain"
+  },
+  {
+    "id": 45,
+    "dp": "DP 46",
+    "title": "Longest Bitonic Subsequence",
+    "section": "DP on LIS",
+    "prompt": "Find the longest subsequence that first strictly increases and then strictly decreases.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def longest_bitonic_subsequence(nums) -> int`",
+      "input": "An integer array.",
+      "output": "Return the length of a subsequence that strictly increases and then strictly decreases. A purely increasing/decreasing subsequence is allowed when it fits the definition.",
+      "constraints": "1 \u2264 n \u2264 1,000",
+      "examples": [
+        [
+          "nums=[1,2,5,3,2]",
+          "5",
+          "The whole sequence increases then decreases."
+        ],
+        [
+          "nums=[1,11,2,10,4,5,2,1]",
+          "6",
+          "An optimal bitonic subsequence has length 6."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            1,
+            2,
+            5,
+            3,
+            2
+          ]
+        },
+        "expected": 5
+      },
+      {
+        "args": {
+          "nums": [
+            1,
+            11,
+            2,
+            10,
+            4,
+            5,
+            2,
+            1
+          ]
+        },
+        "expected": 6
+      }
+    ],
+    "fn": "longest_bitonic_subsequence"
+  },
+  {
+    "id": 46,
+    "dp": "DP 47",
+    "title": "Number of Longest Increasing Subsequences",
+    "section": "DP on LIS",
+    "prompt": "Count how many distinct subsequences have the maximum possible strictly increasing length.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def number_of_lis(nums) -> int`",
+      "input": "An integer array.",
+      "output": "Count the number of strictly increasing subsequences having maximum possible length.",
+      "constraints": "1 \u2264 n \u2264 2,000",
+      "examples": [
+        [
+          "nums=[1,3,5,4,7]",
+          "2",
+          "The longest length is 4, ending with 5,7 or 4,7."
+        ],
+        [
+          "nums=[2,2,2,2,2]",
+          "5",
+          "The longest length is 1 and each position forms one LIS."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            1,
+            3,
+            5,
+            4,
+            7
+          ]
+        },
+        "expected": 2
+      },
+      {
+        "args": {
+          "nums": [
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "expected": 5
+      }
+    ],
+    "fn": "number_of_lis"
+  },
+  {
+    "id": 47,
+    "dp": "DP 48",
+    "title": "Matrix Chain Multiplication",
+    "section": "MCM DP | Partition DP",
+    "prompt": "Given matrix dimensions, determine the minimum number of scalar multiplications required to multiply the whole matrix chain.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def matrix_chain_min_cost(dims) -> int`",
+      "input": "An array `dims` of length n+1 where matrix i has dimensions dims[i-1] \u00d7 dims[i].",
+      "output": "Return the minimum number of scalar multiplications needed to multiply the entire chain.",
+      "constraints": "2 \u2264 len(dims) \u2264 100",
+      "examples": [
+        [
+          "dims=[10,20,30,40,50]",
+          "38000",
+          "Choose the multiplication order optimally."
+        ],
+        [
+          "dims=[10,20,30]",
+          "6000",
+          "There is only one parenthesization: (10\u00d720)(20\u00d730)."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "dims": [
+            10,
+            20,
+            30,
+            40,
+            50
+          ]
+        },
+        "expected": 38000
+      },
+      {
+        "args": {
+          "dims": [
+            10,
+            20,
+            30
+          ]
+        },
+        "expected": 6000
+      }
+    ],
+    "fn": "matrix_chain_min_cost"
+  },
+  {
+    "id": 48,
+    "dp": "DP 49",
+    "title": "Matrix Chain Multiplication \u2014 Bottom-Up",
+    "section": "MCM DP | Partition DP",
+    "prompt": "Implement matrix-chain multiplication with bottom-up tabulation and return the minimum multiplication cost.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def matrix_chain_min_cost_tabulation(dims) -> int`",
+      "input": "The same matrix-dimension array as DP 48.",
+      "output": "Return the minimum scalar multiplication count, implemented with bottom-up interval DP.",
+      "constraints": "2 \u2264 len(dims) \u2264 100",
+      "examples": [
+        [
+          "dims=[10,20,30,40,50]",
+          "38000",
+          "Bottom-up interval DP should produce the same optimum."
+        ],
+        [
+          "dims=[40,20,30,10,30]",
+          "26000",
+          "The best multiplication order minimizes intermediate matrix sizes."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "dims": [
+            10,
+            20,
+            30,
+            40,
+            50
+          ]
+        },
+        "expected": 38000
+      },
+      {
+        "args": {
+          "dims": [
+            40,
+            20,
+            30,
+            10,
+            30
+          ]
+        },
+        "expected": 26000
+      }
+    ],
+    "fn": "matrix_chain_min_cost_tabulation"
+  },
+  {
+    "id": 49,
+    "dp": "DP 50",
+    "title": "Minimum Cost to Cut the Stick",
+    "section": "MCM DP | Partition DP",
+    "prompt": "A stick of given length is cut at specified positions. Each cut costs the current stick length. Find the minimum total cost.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def min_cost_cut(length, cuts) -> int`",
+      "input": "A stick of length `length` and distinct cut positions inside it.",
+      "output": "Perform all cuts. A cut costs the length of the current stick segment being cut. Return the minimum total cost.",
+      "constraints": "1 \u2264 length \u2264 10^6; 1 \u2264 len(cuts) \u2264 100; 0 < cuts[i] < length",
+      "examples": [
+        [
+          "length=7, cuts=[1,3,4,5]",
+          "16",
+          "An optimal cutting order gives total cost 16."
+        ],
+        [
+          "length=9, cuts=[5,6,1,4,2]",
+          "22",
+          "Reordering the cuts changes the total cost; minimize it."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "length": 7,
+          "cuts": [
+            1,
+            3,
+            4,
+            5
+          ]
+        },
+        "expected": 16
+      },
+      {
+        "args": {
+          "length": 9,
+          "cuts": [
+            5,
+            6,
+            1,
+            4,
+            2
+          ]
+        },
+        "expected": 22
+      }
+    ],
+    "fn": "min_cost_cut"
+  },
+  {
+    "id": 50,
+    "dp": "DP 51",
+    "title": "Burst Balloons",
+    "section": "MCM DP | Partition DP",
+    "prompt": "Burst balloons in an order that maximizes coins. Bursting i earns nums[left] * nums[i] * nums[right] for its current neighbours.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def burst_balloons(nums) -> int`",
+      "input": "An array of positive balloon values. When balloon i is burst, its coins equal left_value * nums[i] * right_value among balloons still present.",
+      "output": "Burst every balloon in an order that maximizes total coins.",
+      "constraints": "0 \u2264 n \u2264 300; 1 \u2264 nums[i] \u2264 100",
+      "examples": [
+        [
+          "nums=[3,1,5,8]",
+          "167",
+          "An optimal bursting order earns 167 coins."
+        ],
+        [
+          "nums=[1,5]",
+          "10",
+          "The best total is 10."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "nums": [
+            3,
+            1,
+            5,
+            8
+          ]
+        },
+        "expected": 167
+      },
+      {
+        "args": {
+          "nums": [
+            1,
+            5
+          ]
+        },
+        "expected": 10
+      }
+    ],
+    "fn": "burst_balloons"
+  },
+  {
+    "id": 51,
+    "dp": "DP 52",
+    "title": "Evaluate Boolean Expression to True",
+    "section": "MCM DP | Partition DP",
+    "prompt": "Count the number of ways to parenthesize a boolean expression so that it evaluates to true.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def count_true_parenthesizations(expr) -> int`",
+      "input": "A boolean expression with operands T/F and binary operators &, |, ^. Parenthesize it in different valid ways.",
+      "output": "Return the number of parenthesizations whose value is True.",
+      "constraints": "Odd expression length; number of operands \u2264 200. Apply the modulus required by your judge if specified.",
+      "examples": [
+        [
+          "expr=\"T|F&T\"",
+          "2",
+          "Different parenthesizations can change precedence; count those evaluating to True."
+        ],
+        [
+          "expr=\"T\"",
+          "1",
+          "The single operand is already True."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "expr": "T"
+        },
+        "expected": 1
+      },
+      {
+        "args": {
+          "expr": "T|F"
+        },
+        "expected": 1
+      }
+    ],
+    "fn": "count_true_parenthesizations"
+  },
+  {
+    "id": 52,
+    "dp": "DP 53",
+    "title": "Palindrome Partitioning II",
+    "section": "MCM DP | Partition DP",
+    "prompt": "Partition a string into palindromic substrings using the minimum possible number of cuts.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def min_pal_partition_cuts(s) -> int`",
+      "input": "A string s.",
+      "output": "Partition s into palindromic substrings using the minimum number of cuts. Return that minimum.",
+      "constraints": "1 \u2264 len(s) \u2264 2,000",
+      "examples": [
+        [
+          "s=\"aab\"",
+          "1",
+          "Split as \"aa\" | \"b\"."
+        ],
+        [
+          "s=\"a\"",
+          "0",
+          "A one-character string needs no cut."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "s": "aab"
+        },
+        "expected": 1
+      },
+      {
+        "args": {
+          "s": "a"
+        },
+        "expected": 0
+      },
+      {
+        "args": {
+          "s": "abccbc"
+        },
+        "expected": 2
+      }
+    ],
+    "fn": "min_pal_partition_cuts"
+  },
+  {
+    "id": 53,
+    "dp": "DP 54",
+    "title": "Partition Array for Maximum Sum",
+    "section": "MCM DP | Partition DP",
+    "prompt": "Partition an array into contiguous groups of length at most k. A group's contribution is its length multiplied by its maximum element. Maximize the total.",
+    "difficulty": "Medium",
+    "spec": {
+      "format": "Function signature: `def max_partition_sum(arr, k) -> int`",
+      "input": "An array arr and an integer k. Partition arr into contiguous blocks, each of length at most k.",
+      "output": "For every block, contribution = block length \u00d7 maximum element in that block. Maximize the sum of all block contributions.",
+      "constraints": "1 \u2264 n \u2264 500; 1 \u2264 k \u2264 n; values may be negative depending on the judge",
+      "examples": [
+        [
+          "arr=[1,15,7,9,2,5,10], k=3",
+          "84",
+          "Choose blocks to maximize each block's max\u00d7length contribution."
+        ],
+        [
+          "arr=[1,4,1,5,7,3,6,1,9,9,3], k=4",
+          "83",
+          "An optimal partition attains total 83."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "arr": [
+            1,
+            15,
+            7,
+            9,
+            2,
+            5,
+            10
+          ],
+          "k": 3
+        },
+        "expected": 84
+      },
+      {
+        "args": {
+          "arr": [
+            1,
+            4,
+            1,
+            5,
+            7,
+            3,
+            6,
+            1,
+            9,
+            9,
+            3
+          ],
+          "k": 4
+        },
+        "expected": 83
+      }
+    ],
+    "fn": "max_partition_sum"
+  },
+  {
+    "id": 54,
+    "dp": "DP 55",
+    "title": "Maximum Rectangle Area with all 1's",
+    "section": "DP on Squares",
+    "prompt": "Given a binary matrix, find the area of the largest rectangle containing only 1s.",
+    "difficulty": "Hard",
+    "spec": {
+      "format": "Function signature: `def maximal_rectangle(matrix) -> int`",
+      "input": "A binary matrix containing '0' and '1' values.",
+      "output": "Return the area of the largest axis-aligned rectangle containing only 1s.",
+      "constraints": "1 \u2264 rows,cols \u2264 200",
+      "examples": [
+        [
+          "matrix=[[1,0,1,0,0],[1,0,1,1,1],[1,1,1,1,1],[1,0,0,1,0]]",
+          "6",
+          "A 3\u00d72 rectangle of ones exists."
+        ],
+        [
+          "matrix=[['0']]",
+          "0",
+          "There is no all-1 rectangle."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "matrix": [
+            [
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              1,
+              0
+            ]
+          ]
+        },
+        "expected": 6
+      },
+      {
+        "args": {
+          "matrix": [
+            [
+              "0"
+            ]
+          ]
+        },
+        "expected": 0
+      }
+    ],
+    "fn": "maximal_rectangle"
+  },
+  {
+    "id": 55,
+    "dp": "DP 56",
+    "title": "Count Square Submatrices with All Ones",
+    "section": "DP on Squares",
+    "prompt": "Given a binary matrix, count all square submatrices consisting entirely of 1s.",
+    "difficulty": "Easy",
+    "spec": {
+      "format": "Function signature: `def count_all_one_squares(matrix) -> int`",
+      "input": "A binary matrix containing 0 and 1.",
+      "output": "Count every square submatrix whose cells are all 1.",
+      "constraints": "1 \u2264 rows,cols \u2264 300",
+      "examples": [
+        [
+          "matrix=[[0,1,1,1],[1,1,1,1],[0,1,1,1]]",
+          "15",
+          "Count 1\u00d71, 2\u00d72, and larger all-one squares."
+        ],
+        [
+          "matrix=[[1,0],[0,1]]",
+          "2",
+          "Only the two 1\u00d71 squares qualify."
+        ]
+      ]
+    },
+    "tests": [
+      {
+        "args": {
+          "matrix": [
+            [
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              1,
+              1
+            ]
+          ]
+        },
+        "expected": 15
+      },
+      {
+        "args": {
+          "matrix": [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        },
+        "expected": 2
+      }
+    ],
+    "fn": "count_all_one_squares"
+  }
+]

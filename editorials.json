@@ -1,0 +1,162 @@
+{
+  "DP 2": {
+    "title": "Climbing Stairs",
+    "difficulty": "Easy",
+    "intuition": "At any stair i, you can only arrive from stair (i-1) taking a 1-step, or from stair (i-2) taking a 2-step. Hence, the total number of distinct ways to reach stair i is ways(i) = ways(i-1) + ways(i-2). This directly mirrors the Fibonacci sequence.",
+    "ladder": [
+      {
+        "step": "1. Recursion",
+        "complexity": "O(2^N) Time, O(N) Space (Recursion stack)",
+        "explanation": "Express problem in subproblems. f(n) = f(n-1) + f(n-2). Base cases: f(0)=1, f(1)=1. For n=45, 2^45 = 3.5e13 operations, which results in TLE."
+      },
+      {
+        "step": "2. Memoization",
+        "complexity": "O(N) Time, O(N) Space (Memo array + Stack)",
+        "explanation": "Store results of subproblems in an array memo[] of size n+1 initialized to -1. If memo[n] != -1, return it directly."
+      },
+      {
+        "step": "3. Tabulation",
+        "complexity": "O(N) Time, O(N) Space (DP Table)",
+        "explanation": "Create dp array of size n+1. dp[0] = 1, dp[1] = 1. Loop from i = 2 to n: dp[i] = dp[i-1] + dp[i-2]. Return dp[n]."
+      },
+      {
+        "step": "4. Space Optimization",
+        "complexity": "O(N) Time, O(1) Space",
+        "explanation": "Notice dp[i] only needs the previous two states: prev1 = dp[i-1] and prev2 = dp[i-2]. We can maintain two variables and update prev2, prev1 = prev1, prev1 + prev2."
+      }
+    ],
+    "code": {
+      "python": "def climb_stairs(n: int) -> int:\n    if n <= 1:\n        return 1\n    prev2, prev1 = 1, 1\n    for _ in range(2, n + 1):\n        prev2, prev1 = prev1, prev1 + prev2\n    return prev1",
+      "cpp": "#include <iostream>\nusing namespace std;\n\nint climbStairs(int n) {\n    if (n <= 1) return 1;\n    int prev2 = 1, prev1 = 1;\n    for (int i = 2; i <= n; i++) {\n        int cur = prev1 + prev2;\n        prev2 = prev1;\n        prev1 = cur;\n    }\n    return prev1;\n}",
+      "java": "class Solution {\n    public static int climbStairs(int n) {\n        if (n <= 1) return 1;\n        int prev2 = 1, prev1 = 1;\n        for (int i = 2; i <= n; i++) {\n            int cur = prev1 + prev2;\n            prev2 = prev1;\n            prev1 = cur;\n        }\n        return prev1;\n    }\n}"
+    }
+  },
+  "DP 3": {
+    "title": "Frog Jump",
+    "difficulty": "Medium",
+    "intuition": "The frog starts at index 0 and wants to reach index n-1. From stair i, it can jump to i+1 (cost |heights[i] - heights[i-1]|) or i+2 (cost |heights[i] - heights[i-2]|). To minimize total cost, at each step choose min(jumpOne, jumpTwo).",
+    "ladder": [
+      {
+        "step": "1. Recursion",
+        "complexity": "O(2^N) Time, O(N) Space",
+        "explanation": "f(i) = min(f(i-1) + |h[i]-h[i-1]|, f(i-2) + |h[i]-h[i-2]|). Base case: f(0)=0."
+      },
+      {
+        "step": "2. Memoization",
+        "complexity": "O(N) Time, O(N) Space",
+        "explanation": "Cache intermediate jump results in dp table of size N."
+      },
+      {
+        "step": "3. Tabulation",
+        "complexity": "O(N) Time, O(N) Space",
+        "explanation": "Iterate from 1 to N-1, updating dp[i] from dp[i-1] and dp[i-2]."
+      },
+      {
+        "step": "4. Space Optimization",
+        "complexity": "O(N) Time, O(1) Space",
+        "explanation": "Only need prev1 and prev2 to store energy of previous two stairs."
+      }
+    ],
+    "code": {
+      "python": "def frog_jump(heights: list) -> int:\n    n = len(heights)\n    if n <= 1:\n        return 0\n    prev2, prev1 = 0, abs(heights[1] - heights[0])\n    for i in range(2, n):\n        jump1 = prev1 + abs(heights[i] - heights[i - 1])\n        jump2 = prev2 + abs(heights[i] - heights[i - 2])\n        cur = min(jump1, jump2)\n        prev2, prev1 = prev1, cur\n    return prev1",
+      "cpp": "#include <vector>\n#include <cmath>\n#include <algorithm>\nusing namespace std;\n\nint frogJump(const vector<int>& heights) {\n    int n = heights.size();\n    if (n <= 1) return 0;\n    int prev2 = 0, prev1 = abs(heights[1] - heights[0]);\n    for (int i = 2; i < n; i++) {\n        int jump1 = prev1 + abs(heights[i] - heights[i - 1]);\n        int jump2 = prev2 + abs(heights[i] - heights[i - 2]);\n        int cur = min(jump1, jump2);\n        prev2 = prev1;\n        prev1 = cur;\n    }\n    return prev1;\n}",
+      "java": "class Solution {\n    public static int frogJump(int[] heights) {\n        int n = heights.length;\n        if (n <= 1) return 0;\n        int prev2 = 0, prev1 = Math.abs(heights[1] - heights[0]);\n        for (int i = 2; i < n; i++) {\n            int jump1 = prev1 + Math.abs(heights[i] - heights[i - 1]);\n            int jump2 = prev2 + Math.abs(heights[i] - heights[i - 2]);\n            int cur = Math.min(jump1, jump2);\n            prev2 = prev1;\n            prev1 = cur;\n        }\n        return prev1;\n    }\n}"
+    }
+  },
+  "DP 8": {
+    "title": "Grid Unique Paths",
+    "difficulty": "Medium",
+    "intuition": "In an m x n grid, to reach (i, j), you can only come from top (i-1, j) or left (i, j-1). Total paths to (i, j) is the sum of paths from (i-1, j) and (i, j-1).",
+    "ladder": [
+      {
+        "step": "1. Recursion",
+        "complexity": "O(2^(m+n)) Time",
+        "explanation": "f(i, j) = f(i-1, j) + f(i, j-1). Base: f(0,0)=1."
+      },
+      {
+        "step": "2. Memoization",
+        "complexity": "O(m*n) Time, O(m*n) Space",
+        "explanation": "dp[m][n] memo table saves redundant paths."
+      },
+      {
+        "step": "3. Tabulation",
+        "complexity": "O(m*n) Time, O(m*n) Space",
+        "explanation": "Bottom up: dp[i][j] = dp[i-1][j] + dp[i][j-1]."
+      },
+      {
+        "step": "4. Space Optimization",
+        "complexity": "O(m*n) Time, O(n) Space",
+        "explanation": "Notice we only need previous row values: prev_row[j] and current row running sum."
+      }
+    ],
+    "code": {
+      "python": "def unique_paths(m: int, n: int) -> int:\n    dp = [1] * n\n    for _ in range(1, m):\n        for j in range(1, n):\n            dp[j] += dp[j - 1]\n    return dp[-1]",
+      "cpp": "#include <vector>\nusing namespace std;\n\nint uniquePaths(int m, int n) {\n    vector<int> dp(n, 1);\n    for (int i = 1; i < m; i++) {\n        for (int j = 1; j < n; j++) {\n            dp[j] += dp[j - 1];\n        }\n    }\n    return dp[n - 1];\n}",
+      "java": "import java.util.Arrays;\nclass Solution {\n    public static int uniquePaths(int m, int n) {\n        int[] dp = new int[n];\n        Arrays.fill(dp, 1);\n        for (int i = 1; i < m; i++) {\n            for (int j = 1; j < n; j++) {\n                dp[j] += dp[j - 1];\n            }\n        }\n        return dp[n - 1];\n    }\n}"
+    }
+  },
+  "DP 19": {
+    "title": "0/1 Knapsack",
+    "difficulty": "Medium",
+    "intuition": "For each item i with weight w and value v, you have two choices: leave it (dp[i-1][cap]) or take it if weight fits (dp[i-1][cap - w] + v). Take the maximum of both choices.",
+    "ladder": [
+      {
+        "step": "1. Recursion",
+        "complexity": "O(2^N) Time, O(N) Space",
+        "explanation": "f(idx, cap) = max(f(idx-1, cap), val[idx] + f(idx-1, cap-wt[idx]))."
+      },
+      {
+        "step": "2. Memoization",
+        "complexity": "O(N*Capacity) Time & Space",
+        "explanation": "dp[N][Capacity+1] matrix storing max value."
+      },
+      {
+        "step": "3. Tabulation",
+        "complexity": "O(N*Capacity) Time & Space",
+        "explanation": "Iterate through items and capacities bottom-up."
+      },
+      {
+        "step": "4. Space Optimization",
+        "complexity": "O(N*Capacity) Time, O(Capacity) Space",
+        "explanation": "Iterate capacity backwards from Cap down to wt[i] to compute 1D array in-place."
+      }
+    ],
+    "code": {
+      "python": "def knapsack_01(weights: list, values: list, capacity: int) -> int:\n    dp = [0] * (capacity + 1)\n    for w, v in zip(weights, values):\n        for cap in range(capacity, w - 1, -1):\n            dp[cap] = max(dp[cap], dp[cap - w] + v)\n    return dp[capacity]",
+      "cpp": "#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint knapsack01(const vector<int>& weights, const vector<int>& values, int capacity) {\n    vector<int> dp(capacity + 1, 0);\n    int n = weights.size();\n    for (int i = 0; i < n; i++) {\n        for (int cap = capacity; cap >= weights[i]; cap--) {\n            dp[cap] = max(dp[cap], dp[cap - weights[i]] + values[i]);\n        }\n    }\n    return dp[capacity];\n}",
+      "java": "class Solution {\n    public static int knapsack01(int[] weights, int[] values, int capacity) {\n        int[] dp = new int[capacity + 1];\n        int n = weights.length;\n        for (int i = 0; i < n; i++) {\n            for (int cap = capacity; cap >= weights[i]; cap--) {\n                dp[cap] = Math.max(dp[cap], dp[cap - weights[i]] + values[i]);\n            }\n        }\n        return dp[capacity];\n    }\n}"
+    }
+  },
+  "DP 25": {
+    "title": "Longest Common Subsequence",
+    "difficulty": "Medium",
+    "intuition": "Compare characters a[i-1] and b[j-1]. If they match, length is 1 + LCS(i-1, j-1). If they differ, best is max(LCS(i-1, j), LCS(i, j-1)).",
+    "ladder": [
+      {
+        "step": "1. Recursion",
+        "complexity": "O(2^(M+N)) Time",
+        "explanation": "f(i, j) = 1 + f(i-1, j-1) if match else max(f(i-1, j), f(i, j-1))."
+      },
+      {
+        "step": "2. Memoization",
+        "complexity": "O(M*N) Time & Space",
+        "explanation": "2D table dp[m+1][n+1] storing LCS lengths."
+      },
+      {
+        "step": "3. Tabulation",
+        "complexity": "O(M*N) Time & Space",
+        "explanation": "Fill rows 1..m and cols 1..n."
+      },
+      {
+        "step": "4. Space Optimization",
+        "complexity": "O(M*N) Time, O(N) Space",
+        "explanation": "Only need previous row array and current row array."
+      }
+    ],
+    "code": {
+      "python": "def lcs_length(a: str, b: str) -> int:\n    prev = [0] * (len(b) + 1)\n    for x in a:\n        cur = [0] * (len(b) + 1)\n        for j, y in enumerate(b, 1):\n            if x == y:\n                cur[j] = prev[j - 1] + 1\n            else:\n                cur[j] = max(prev[j], cur[j - 1])\n        prev = cur\n    return prev[-1]",
+      "cpp": "#include <string>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint lcsLength(const string& a, const string& b) {\n    int m = a.size(), n = b.size();\n    vector<int> prev(n + 1, 0);\n    for (char x : a) {\n        vector<int> cur(n + 1, 0);\n        for (int j = 1; j <= n; j++) {\n            if (x == b[j - 1]) cur[j] = prev[j - 1] + 1;\n            else cur[j] = max(prev[j], cur[j - 1]);\n        }\n        prev = cur;\n    }\n    return prev[n];\n}",
+      "java": "class Solution {\n    public static int lcsLength(String a, String b) {\n        int m = a.length(), n = b.length();\n        int[] prev = new int[n + 1];\n        for (int i = 0; i < m; i++) {\n            char x = a.charAt(i);\n            int[] cur = new int[n + 1];\n            for (int j = 1; j <= n; j++) {\n                if (x == b.charAt(j - 1)) cur[j] = prev[j - 1] + 1;\n                else cur[j] = Math.max(prev[j], cur[j - 1]);\n            }\n            prev = cur;\n        }\n        return prev[n];\n    }\n}"
+    }
+  }
+}

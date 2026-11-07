@@ -1,0 +1,36 @@
+name: CI - Striver A2Z DP Judge
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Syntax check
+        run: |
+          python -m py_compile server.py references.py test_references.py
+
+      - name: Run reference oracle test suite (595+ test verifications)
+        run: |
+          pytest test_references.py -v --tb=short
